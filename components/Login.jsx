@@ -42,7 +42,7 @@ export default function Login() {
             smarter with Al-driven insights."</Text>
 
       <TouchableOpacity style={styles.button}
-      onPress={()=>route.push("/auth/sign-in")}
+      onPress={()=>router.push("/auth/sign-in")}
       >
       {/* <Image source={require('./../assets/images/Google-logo.png')}
         style={{
