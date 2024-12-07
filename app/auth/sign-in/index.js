@@ -18,6 +18,7 @@ export default function SignIn() {
       headerShown: false,
     });
   }, []);
+  
 
   const onSignIn=()=>{
 
@@ -30,6 +31,8 @@ export default function SignIn() {
   .then((userCredential) => {
     // Signed in 
     const user = userCredential.user;
+
+    router.replace('/mytrip')
     console.log(user);
     // ...
   })

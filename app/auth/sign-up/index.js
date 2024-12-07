@@ -28,7 +28,10 @@ export default function SignUp() {
 
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
+        const user = userCredential.user;
         console.log(userCredential.user);
+        router.replace('/mytrip')
+
         ToastAndroid.show('Account Created Successfully', ToastAndroid.BOTTOM);
       })
       .catch((error) => {
