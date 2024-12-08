@@ -1,21 +1,22 @@
 import { View, Text, TextInput, FlatList, TouchableOpacity, Alert } from 'react-native';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import axios from 'axios';
+import debounce from 'lodash.debounce'; // Import debounce
 import { Colors } from './../../constants/Colors';
-import { useNavigation } from 'expo-router';
-import { useContext } from 'react';
-import {CreateTripContext} from './../../context/CreateTripContex'
+import { useNavigation, useRouter } from 'expo-router';
+import { CreateTripContext } from './../../context/CreateTripContex';
 
 export default function SearchPlace() {
   const navigation = useNavigation();
   const [searchQuery, setSearchQuery] = useState('');
   const [suggestions, setSuggestions] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [placeDetails, setPlaceDetails] = useState(null);
-  
-  const {tripData,setTripData}=useContext(CreateTripContext);
+  const router = useRouter();
+  const { tripData, setTripData } = useContext(CreateTripContext);
+  let cancelToken;
+
   // Update navigation options
-  React.useEffect(() => {
+  useEffect(() => {
     navigation.setOptions({
       headerShown: true,
       headerTransparent: true,
@@ -23,15 +24,26 @@ export default function SearchPlace() {
     });
   }, [navigation]);
 
-  useEffect(()=>{
+  useEffect(() => {
     console.log(tripData);
-  }),[tripData]
+  }, [tripData]);
 
   // Fetch suggestions from RapidAPI
   const fetchSuggestions = async (query) => {
-    if (!query) return;
+    if (!query || query.length < 3) {
+      // Skip fetching if query is empty or too short
+      setSuggestions([]);
+      return;
+    }
 
     setLoading(true);
+
+    // Cancel the previous API request if it's still ongoing
+    if (cancelToken) {
+      cancelToken.cancel('Operation canceled due to new request.');
+    }
+
+    cancelToken = axios.CancelToken.source();
 
     const options = {
       method: 'GET',
@@ -44,18 +56,26 @@ export default function SearchPlace() {
         'x-rapidapi-key': '45e6271b49msh02064a264dbc139p15c911jsnb36740740f5b',
         'x-rapidapi-host': 'place-autocomplete1.p.rapidapi.com',
       },
+      cancelToken: cancelToken.token,
     };
 
     try {
       const response = await axios.request(options);
       setSuggestions(response.data.predictions || []);
     } catch (error) {
-      console.error(error);
-      Alert.alert('Error', 'Failed to fetch suggestions. Please try again later.');
+      if (axios.isCancel(error)) {
+        console.log('Request canceled:', error.message);
+      } else {
+        console.error(error);
+        Alert.alert('Error', 'Failed to fetch suggestions. Please try again later.');
+      }
     } finally {
       setLoading(false);
     }
   };
+
+  // Debounced version of fetchSuggestions
+  const debouncedFetchSuggestions = debounce(fetchSuggestions, 500);
 
   // Fetch place details using place_id
   const fetchPlaceDetails = async (place_id) => {
@@ -78,21 +98,16 @@ export default function SearchPlace() {
     try {
       const response = await axios.request(options);
       const details = response.data.result;
-      setPlaceDetails(response.data.result); // Save place details
-      console.log('Place Details:', response.data.result);
-      
-      console.log("Name:",details.name); // Logs the name of the place
-      console.log("Coordinates:",details.geometry?.location); // Logs latitude and longitude
-      console.log("Photos:",details.photos?.[0]?.photo_reference); // Logs the first photo reference
-      console.log("Url:",details.url); // Logs the Google Maps URL
       setTripData({
-        locationInfo:{
-          name:details.name,
-          coordinate:details.geometry?.location,
-          photoRef:details.photos?.[0]?.photo_reference,
-          url:details.url
-        }
-      })
+        locationInfo: {
+          name: details.name,
+          coordinate: details.geometry?.location,
+          photoRef: details.photos?.[0]?.photo_reference,
+          url: details.url,
+        },
+      });
+
+      router.push('/create-trip/select-traveler');
     } catch (error) {
       console.error(error);
       Alert.alert('Error', 'Failed to fetch place details. Please try again later.');
@@ -121,7 +136,7 @@ export default function SearchPlace() {
         value={searchQuery}
         onChangeText={(text) => {
           setSearchQuery(text);
-          fetchSuggestions(text);
+          debouncedFetchSuggestions(text); // Use debounced function
         }}
       />
       {loading && <Text>Loading...</Text>}
@@ -144,7 +159,6 @@ export default function SearchPlace() {
           </TouchableOpacity>
         )}
       />
-      
     </View>
   );
 }

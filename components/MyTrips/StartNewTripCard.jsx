@@ -23,11 +23,13 @@ export default function StartNewTripCard() {
         
     }}
     >
-        <Ionicons name="location-sharp" size={30} color="black" />
+        <Ionicons style={{
+         marginTop:20
+        }} name="location-sharp" size={40} color="red" />
      <Text style={{
         fontFamily:'outfit Bold',
         fontSize:25,
-        marginTop:10
+        marginTop:5
      }}>
         No Trip Added Yet
      </Text>
@@ -35,7 +37,7 @@ export default function StartNewTripCard() {
      <Text style={{
         fontFamily:'outfit',
         fontSize:20,
-        marginTop:10,
+        marginTop:5,
         textAlign:'center',
         color:Colors.Gray
      }}>
@@ -48,7 +50,8 @@ export default function StartNewTripCard() {
         padding:15,
         backgroundColor:Colors.Primary,
         borderRadius:15,
-        paddingHorizontal:30
+        paddingHorizontal:30,
+        marginBottom:15
      }}
      >
         <Text
