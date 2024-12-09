@@ -90,7 +90,7 @@ export default function SearchPlace() {
         reviews_no_translations: 'true',
       },
       headers: {
-        'x-rapidapi-key': '45e6271b49msh02064a264dbc139p15c911jsnb36740740f5b',
+        'x-rapidapi-key': 'a19a5f5db7msh679b97480f1b148p1b1a5ejsn43bf75d46f97',
         'x-rapidapi-host': 'google-map-places.p.rapidapi.com',
       },
     };

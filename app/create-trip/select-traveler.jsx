@@ -1,6 +1,6 @@
 import { View, Text, FlatList, TouchableOpacity } from 'react-native'
 import React from 'react'
-import { useNavigation } from "expo-router";
+import { Link, router, useNavigation } from "expo-router";
 import { useEffect } from 'react';
 import { Colors } from './../../constants/Colors';
 import { SelectTravelesList } from './../../constants/Options';
@@ -24,7 +24,7 @@ useEffect(()=>{
     headerTransperent:true,
     headerTitle:''
   })
-})
+},[])
 
 useEffect(()=>{
   setTripData({...tripData,
@@ -76,12 +76,16 @@ useEffect(()=>{
 
       </View>
 
-      <TouchableOpacity style={{
+      
+      <TouchableOpacity
+           onPress={() => router.push('/create-trip/select-dates')}
+      style={{
         padding:20,
         backgroundColor:Colors.Primary,
         borderRadius:15,
         marginTop:20
       }}>
+        
         <Text style={{
           textAlign:'center',
           color:Colors.White,
@@ -89,7 +93,7 @@ useEffect(()=>{
           fontSize:20
         }}>Continue</Text>
       </TouchableOpacity>
-
+      
     </View>
   )
 }
