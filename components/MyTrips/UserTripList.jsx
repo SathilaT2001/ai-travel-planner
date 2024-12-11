@@ -3,11 +3,13 @@ import React from 'react'
 import moment from 'moment';
 import { Colors } from './../../constants/Colors';
 import UserTripCard from './UserTripCard';
+import { useRouter } from 'expo-router';
 
 
 export default function UserTripList({userTrips}) {
     const LatestTrip=JSON.parse(userTrips[0].tripData)
-    
+    const router=useRouter();
+
   return (
     <View>
       <View style={{
@@ -24,14 +26,22 @@ export default function UserTripList({userTrips}) {
             borderRadius:15
           }}
           />   */}
-          :
-        <Image source={require('./../../assets/images/login.png')}
+          
+          <Image source={{uri:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSgiHOxdrm2b-8ETUgU--CWHw7ZcLKDUvsF8w&s'}}
+          style={{
+            width:'100%',
+            height:240,
+            objectFit:'cover',
+            borderRadius:15
+          }}
+          />
+        {/* <Image source={require('./../../assets/images/login.png')}
         style={{
             width:'100%',
             height:240,
             objectFit:'cover',
             borderRadius:15
-        }} />
+        }} /> */}
         <View> 
             <Text style={{
               fontFamily:'outfit Bold',
@@ -46,18 +56,30 @@ export default function UserTripList({userTrips}) {
           marginTop:5
         }} >
             <Text style={{
-              fontFamily:'outfit',
-              fontSize:17,
-              color:Colors.Gray
-            }} >{moment(LatestTrip.startDate).format('DD MMM YYYY')} </Text>
+              fontFamily: 'outfit',
+              fontSize: 14,
+              color: Colors.Gray
+            }}>
+             {moment(LatestTrip.startDate).format('DD MMM YYYY')}
+            </Text>
 
-            <Text style={{
-              fontFamily:'outfit',
-              fontSize:17,
-              color:Colors.Gray
-            }} >🚌{LatestTrip.traveler.title} </Text>
+          <Text style={{
+            fontFamily: 'outfit',
+            fontSize: 17,
+            color: Colors.Gray
+          }}>
+            🚌 {LatestTrip.traveler.title}
+          </Text>
+
+
         </View>
-        <TouchableOpacity style={{
+        <TouchableOpacity 
+        onPress={()=>router.push({pathname:'/trip-details',params:{
+          trip:JSON.stringify(userTrips[0])
+        }
+
+        })}
+        style={{
           backgroundColor:Colors.Primary,
           padding:15,
           borderRadius:15,

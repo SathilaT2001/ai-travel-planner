@@ -4,6 +4,7 @@ import moment from 'moment';
 import { Colors } from '../../constants/Colors';
 
 export default function UserTripCard({trip}) {
+  
     const formatData=(data)=>{
         return JSON.parse(data);
     }
