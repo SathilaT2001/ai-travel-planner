@@ -1,8 +1,29 @@
 import { View, Text, FlatList, Image } from 'react-native'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Colors } from '../../constants/Colors'
+import { fetchImageFromPixabay } from './../../configs/pixabayApi';
 
 export default function HotelList({ hotelList }) {
+  const [images, setImages] = useState({});
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const loadImages = async () => {
+      const newImages = {};
+      for (let hotel of hotelList) {
+        if (hotel?.name) {
+          const imageUrl = await fetchImageFromPixabay(hotel.name); 
+          newImages[hotel.name] = imageUrl;
+        }
+      }
+      setImages(newImages);
+      setLoading(false); 
+    };
+
+    loadImages();
+  }, [hotelList]);
+
+
   return (
     <View style={{
         marginTop:20,
@@ -25,16 +46,15 @@ export default function HotelList({ hotelList }) {
             marginRight:20,
             width:180
           }}>
-            <Image source={require('./../../assets/images/login.png')}
-            //   source={{ uri: item?.hotel_image_url }}
-              style={{
-                marginTop:10,
-                width: 180,
-                height: 120,
-                borderRadius: 15
-                
-              }} 
-            />
+            <Image
+                source={images[item?.name] ? { uri: images[item?.name] } : require('./../../assets/images/login.png')}
+                style={{
+                  marginTop: 10,
+                  width: 180,
+                  height: 120,
+                  borderRadius: 15
+                }}
+              />
             <Text style={{
               fontFamily: 'outfit Medium',
               fontSize: 17,

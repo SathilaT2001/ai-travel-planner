@@ -44,14 +44,7 @@ export default function Login() {
       <TouchableOpacity style={styles.button}
       onPress={()=>router.push("/auth/sign-in")}
       >
-      {/* <Image source={require('./../assets/images/Google-logo.png')}
-        style={{
-            width:'25',
-            height:'25',
-            //marginLeft:10,
-            //marginTop:10
-        }}
-      /> */}
+      
         <Text style={{
             color:Colors.White,
             fontFamily:'outfit',
