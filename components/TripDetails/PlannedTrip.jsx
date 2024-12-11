@@ -1,79 +1,106 @@
-import { View, Text, StyleSheet } from 'react-native';
-import React from 'react';
+import { View, Text, ScrollView, Image, TouchableOpacity } from 'react-native'
+import React from 'react'
+import { Colors } from '../../constants/Colors';
+import Ionicons from '@expo/vector-icons/Ionicons';
 
-export default function PlannedTrip({ itinerary }) {
-  if (!Array.isArray(itinerary) || itinerary.length === 0) {
-    return (
-      <View style={styles.container}>
-        <Text style={styles.title}>🏕️ Planned Trip</Text>
-      </View>
-    );
-  }
 
+export default function PlannedTrip({ details }) {
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>🏕️ Planned Trip</Text>
-      {itinerary.map((dayDetails, index) => (
-        <View key={index} style={styles.dayContainer}>
-          {/* Display Day */}
-          <Text style={styles.dayTitle}>Day {dayDetails.day}</Text>
+    <View style={{ marginTop: 20 }}>
+      <Text style={{
+        fontFamily: 'outfit Bold',
+        fontSize: 20
+      }}>🏕️  Trip Details</Text>
 
-          {/* List Activities */}
-          {dayDetails.activities.map((activity, idx) => (
-            <View key={idx} style={styles.activityContainer}>
-              <Text style={styles.activityTime}>{activity.time}</Text>
-              <Text style={styles.activityDescription}>{activity.activity}</Text>
-            </View>
-          ))}
-        </View>
-      ))}
+      <ScrollView style={{ marginTop: 10 }}>
+        {details && details.map((day, index) => (
+          <View key={index} style={{ marginBottom: 15 }}>
+            <Text style={{
+              fontFamily: 'outfit Bold',
+              fontSize: 20,
+              marginTop: 10
+            }}>
+              Day {day.day}: {day.plan ? '' : 'No Activities Planned'}
+            </Text>
+
+            
+            {day.plan && day.plan.map((activity, idx) => (
+              <View key={idx} style={{ 
+                marginTop: 10,
+                backgroundColor:Colors.LIGHT_GRAY,
+                padding:10,
+                borderRadius:15,
+                borderColor:Colors.Gray,
+                marginTop:20 
+              }}
+              >
+                <Image source={require('./../../assets/images/login.png')}
+                  style={{
+                    width:'100%',
+                    height:120,
+                    borderRadius:15
+                  }}
+                />
+                <View style={{
+                  marginTop:5
+                }}>
+                <Text style={{
+                  fontFamily: 'outfit Bold',
+                  fontSize: 20,
+                }}>{activity.name} </Text>
+                </View>
+
+                 <Text style={{
+                  fontFamily: 'outfit',
+                  fontSize: 17,
+                  color:Colors.Gray
+                }}>
+                  {activity.details}
+                </Text>
+              <View style={{
+                paddingRight:10,
+                display:'flex',
+                flexDirection:'row',
+                alignItems:'center',
+                justifyContent:'space-between'
+              }}>
+              <View>
+                <Text style={{
+                  fontFamily: 'outfit',
+                  fontSize: 17,
+                  marginTop:5
+                }}>
+                  🎟️ Ticket Price: 
+                  <Text style={{
+                    fontFamily:'outfit Bold'
+                  }}> {activity.ticket_price} </Text>
+                </Text>
+                
+                <Text style={{
+                  fontFamily: 'outfit',
+                  fontSize: 17,
+                  marginTop:5
+                  
+                }}>
+                  🕧 Time to Travel:
+                  <Text style={{
+                    fontFamily:'outfit Bold'
+                  }}> {activity.time_to_travel} </Text>    
+                </Text>
+              </View>
+                  <TouchableOpacity style={{
+                    backgroundColor:Colors.Primary,
+                    padding:7,
+                    borderRadius:7
+                  }}>
+                  <Ionicons name="navigate" size={20} color="white" />
+                  </TouchableOpacity>
+              </View>
+              </View>
+            ))}
+          </View>
+        ))}
+      </ScrollView>
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    padding: 15,
-    marginTop: 20,
-  },
-  title: {
-    fontFamily: 'outfit Bold',
-    fontSize: 20,
-    marginBottom: 10,
-  },
-  noDataText: {
-    fontFamily: 'outfit',
-    fontSize: 16,
-    color: '#555',
-  },
-  dayContainer: {
-    marginBottom: 20,
-    backgroundColor: '#f9f9f9',
-    padding: 10,
-    borderRadius: 10,
-    shadowColor: '#000',
-    shadowOpacity: 0.1,
-    shadowOffset: { width: 0, height: 2 },
-    shadowRadius: 5,
-  },
-  dayTitle: {
-    fontFamily: 'outfit Bold',
-    fontSize: 18,
-    marginBottom: 10,
-  },
-  activityContainer: {
-    marginBottom: 10,
-    paddingLeft: 10,
-    borderLeftWidth: 2,
-    borderLeftColor: '#007AFF',
-  },
-  activityTime: {
-    fontFamily: 'outfit Bold',
-    fontSize: 16,
-  },
-  activityDescription: {
-    fontFamily: 'outfit',
-    fontSize: 15,
-    color: '#555',
-  },
-});

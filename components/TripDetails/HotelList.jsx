@@ -11,7 +11,7 @@ export default function HotelList({ hotelList }) {
       <Text style={{
         fontFamily: 'outfit Bold',
         fontSize: 20
-      }}>🏩 Hotel Recommendations</Text>
+      }}>🏩  Hotel Recommendations</Text>
 
       <FlatList
         data={hotelList}
@@ -39,9 +39,26 @@ export default function HotelList({ hotelList }) {
               fontFamily: 'outfit Medium',
               fontSize: 17,
               marginTop:5
+            }}>{item?.name}</Text>
 
-            }}>{item?.hotel_name}</Text>
+          <View style={{
+            display:'flex',
+            flexDirection:'row',
+            justifyContent:'space-between',
+            paddingRight:10
+          }}>
+            <Text style={{
+              fontFamily: 'outfit Medium',
+              fontSize: 15,
+              marginTop:5
+            }}>⭐ {item?.rating}</Text>
 
+            <Text style={{
+              fontFamily: 'outfit Medium',
+              fontSize: 15,
+              marginTop:5
+            }}>💵 {item?.price}</Text>
+          </View>
             
           </View>
         )}

@@ -12,13 +12,12 @@ export default function TripDetails() {
     const { trip } = useLocalSearchParams();
     const [tripDetails, setTripDetails] = useState({});
 
-    // Function to handle data parsing and add error handling
     const formatData = (data) => {
         try {
             return typeof data === 'string' ? JSON.parse(data) : data;
         } catch (error) {
             console.error('Failed to parse JSON:', error);
-            return {}; // Return an empty object if parsing fails
+            return {}; 
         }
     };
 
@@ -29,10 +28,9 @@ export default function TripDetails() {
             headerTitle: '',
         });
 
-        // Parse the trip data and set it to state
         if (trip) {
             const parsedTrip = formatData(trip);
-            setTripDetails(parsedTrip); // Assuming the parsed trip data has the properties you're looking for
+            setTripDetails(parsedTrip); 
         }
     }, [trip, navigation]);
 
@@ -60,7 +58,7 @@ export default function TripDetails() {
                     fontFamily: 'outfit Bold',
                     fontSize: 25,
                 }}>
-                    {tripDetails?.tripPlan?.travel_plan?.destination || 'Unknown Destination'}
+                    {tripDetails?.tripPlan?.travel_plan_details?.destination || 'Unknown Destination'}
                 </Text>
 
                 <View style={{
@@ -94,16 +92,16 @@ export default function TripDetails() {
                 </Text>
 
                 {/* Flight Info */}
-                <FlightInfo flightData={tripDetails?.tripPlan?.travel_plan?.flight_details?.[0]} />
+                <FlightInfo flightData={tripDetails?.tripPlan?.flight_details} />
 
                 
 
                 {/* Hotels Info */}
-                <HotelList hotelList={tripDetails?.tripPlan?.travel_plan?.hotels}/>
+                <HotelList hotelList={tripDetails?.tripPlan?.hotels}/>
             
                 {/* Day Planner Info */}
-                <PlannedTrip itinerary={tripDetails?.tripPlan?.itinerary || []} />
-
+                {/* <PlannedTrip details={tripDetails?.tripPlan?.itinerary} /> */}
+                <PlannedTrip details={tripDetails?.tripPlan?.itinerary || []} />
             
             </View>
         </ScrollView>
