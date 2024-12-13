@@ -1,50 +1,37 @@
-# Welcome to your Expo app 👋
+# TripWise - AI Travel Planner React Native Application
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+## Overview
+🌍 **TripWise** is an innovative AI-driven travel planning app designed to simplify and personalize your travel experiences. Built with React Native and leveraging Expo, the app integrates advanced technologies like Firebase, Rapid API (for location services), and Google's Gemini AI to deliver a seamless and efficient travel planning solution.
 
-## Get started
+## Features
 
-1. Install dependencies
+- 🔒 **User Authentication**: Secure sign-in and sign-up functionalities powered by Firebase Authentication.
+- 🧳 **Personalized Trip Itineraries**: Custom travel plans generated using Google's Gemini AI, based on user preferences (destination, duration, traveler count, budget).
+- 📍 **Location Search with Autocomplete**: Real-time location suggestions using Rapid API for efficient destination selection.
+- 📂 **Trip Data Management**: Persistent storage of trip plans in Firebase Firestore, with easy access and management via the 'My Trips' screen.
+- 🖼️ **Rich Media Integration**: Stunning visuals sourced from Pixabay API to enhance the user experience.
+- 🎨 **Modern UI Design**: Visually appealing and user-friendly interfaces with custom fonts and intuitive layouts.
 
-   ```bash
-   npm install
-   ```
+## Key Technologies
 
-2. Start the app
+- ⚛️ **React Native with Expo**: Simplifies development and provides pre-built tools for native feature integration.
+- 🔥 **Firebase**: Handles user authentication and provides a NoSQL Firestore database for storing trip data.
+- 🚀 **Rapid API**: Enables precise and user-friendly location search with autocomplete functionality.
+- 🤖 **Google Gemini AI**: Powers the generation of detailed and dynamic travel itineraries.
+- 🔗 **React Context API**: Manages and shares trip data across components without complex state management.
+- 🖼️ **Pixabay API**: Fetches high-quality images for trip destinations and activities.
 
-   ```bash
-    npx expo start
-   ```
 
-In the output, you'll find options to open the app in a
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+## Acknowledgements
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+- ⚛️ [React Native](https://reactnative.dev/)
+- 🚀 [Expo](https://expo.dev/)
+- 🔥 [Firebase](https://firebase.google.com/)
+- 🌐 [Rapid API](https://rapidapi.com/)
+- 🤖 [Google Gemini AI](https://www.google.com/intl/en/ai/)
+- 🖼️ [Pixabay API](https://pixabay.com/api/docs/)
 
-## Get a fresh project
+---
 
-When you're ready, run:
-
-```bash
-npm run reset-project
-```
-
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
-
-## Learn more
-
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+📧 **Contact**: For any queries or support, please reach out to sathilathimalkad@gmail.com.
