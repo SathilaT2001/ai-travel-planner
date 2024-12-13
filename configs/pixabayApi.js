@@ -1,6 +1,6 @@
 
 export const fetchImageFromPixabay = async (name) => {
-    const apiKey = '47587039-e00fcc94d2db6ebe5fb5556d1';
+    const apiKey = 'ENTER_YOUR_API_KEY';
     const searchQuery = encodeURIComponent(name); 
     const url = `https://pixabay.com/api/?key=${apiKey}&q=${searchQuery}&image_type=photo&per_page=3`;
   
