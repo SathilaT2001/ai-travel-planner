@@ -14,7 +14,7 @@ export default function UserTripCard({ trip }) {
     return JSON.parse(data);
   };
 
-  const destination = trip?.tripPlan?.travel_plan_details?.destination || 'Unknown Destination';
+  const destination = formatData(trip.tripData).locationInfo.name || 'Unknown Destination';
 
   useEffect(() => {
     const loadImage = async () => {
@@ -29,7 +29,7 @@ export default function UserTripCard({ trip }) {
   }, [destination]);
 
   return (
-    <TouchableOpacity>
+    <TouchableOpacity >
     <View
       style={{
         marginTop: 20,

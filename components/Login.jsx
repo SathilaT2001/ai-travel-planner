@@ -49,7 +49,7 @@ export default function Login() {
             color:Colors.White,
             fontFamily:'outfit',
             fontSize:18,
-        }}>Sign in with Google</Text>
+        }}>Continue</Text>
       </TouchableOpacity>
       </View>
 

@@ -37,7 +37,7 @@ export default function TripDetails() {
 
             // Fetch destination image
             const destinationName =
-                parsedTrip?.tripPlan?.travel_plan_details?.destination;
+                parsedTrip?.tripPlan?.trip_details?.destination;
             if (destinationName) {
                 fetchImageFromPixabay(destinationName)
                     .then((url) => {
@@ -90,7 +90,7 @@ export default function TripDetails() {
                         fontSize: 25,
                     }}
                 >
-                    {tripDetails?.tripPlan?.travel_plan_details?.destination ||
+                    {tripDetails?.tripPlan?.trip_details?.destination ||
                         'Unknown Destination'}
                 </Text>
 
